@@ -9,7 +9,8 @@ public class BookResponseModel {
         private String borrower;
         private Author author;
 
-    public BookResponseModel(String borrower, Author author) {
+    public BookResponseModel(Long id, String borrower, Author author) {
+        this.id = id;
         this.borrower = borrower;
         this.author = author;
     }

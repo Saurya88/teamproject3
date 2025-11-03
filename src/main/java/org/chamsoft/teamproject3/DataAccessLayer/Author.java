@@ -22,6 +22,7 @@ public class Author {
     @Column(name = "last_name")
     private String lName;
 
+
     public Author(String fName, String lName) {
         this.fName = fName;
         this.lName = lName;

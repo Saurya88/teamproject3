@@ -14,22 +14,20 @@ public class BookController {
         this.bookService = bookService;
     }
 
-    // Simple GET endpoint
     @GetMapping("/books")
-    public Map<String, Object> getCars() {
-        List<BookResponseModel> cars = this.bookService.getCars(  );
+    public Map<String, Object> getBooks() {
+        List<BookResponseModel> books = this.bookService.getBooks(  );
         return  Map.of(
                 "status", "Success",
-                "list of all cars", cars);
+                "list of all books", books);
     }
 
 
     @DeleteMapping("/books/{id}")
-    //A REGARDER SI ERREUR
     public Map<String, Object> deleteBook(@PathVariable Long id) {
         this.bookService.deleteBook(id);
         return Map.of("status","success",
-                "message","Car deleted successfully",
+                "message","Book deleted successfully",
                 "id",id);
     }
 }

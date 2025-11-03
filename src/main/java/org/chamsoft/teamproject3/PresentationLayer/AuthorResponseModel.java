@@ -10,7 +10,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AuthorResponseModel {
-    private String id;
+    private Long id;
     private String fName, lName;
     private BookSummary book;
 

@@ -1,19 +1,10 @@
 package org.chamsoft.teamproject3.BusinessLogicLayer;
 import org.springframework.stereotype.Service;
-
-
 import org.chamsoft.teamproject3.Utilities.*;
 import org.chamsoft.teamproject3.DataAccessLayer.*;
-import org.chamsoft.teamproject3.DataAccessLayer.*;
-import org.chamsoft.teamproject3.PresentationLayer.*;
-import org.chamsoft.teamproject3.MapperLayer.*;
-
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
-@Service
-public class AuthorService {
+@Service public class AuthorService {
 
     private final AuthorRepository authorRepository;
     private final BookRepository bookRepository;
@@ -23,15 +14,21 @@ public class AuthorService {
         this.bookRepository = bookRepository;
     }
 
-    public List getAllAuthors() {
+    public List<Author> getAllAuthors() {
         return this.authorRepository.findAll();
     }
 
-
     public void deleteAuthorById(String id) {
         long longId = Long.parseLong(id);
-        Author author = authorRepository.findById(id)
+
+        Author author = authorRepository.findById(longId)
                 .orElseThrow(() -> new InvalidBookDataException("Author with id: " + longId + " not found."));
+
+        boolean hasBooks = bookRepository.existsByAuthorId(longId);// <-- use a repository method
+
+        if (hasBooks) {
+            throw new InvalidBookDataException("Cannot delete author because they have books.");
+        }
 
         authorRepository.delete(author);
     }

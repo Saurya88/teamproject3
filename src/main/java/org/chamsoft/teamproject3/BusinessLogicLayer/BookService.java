@@ -1,12 +1,12 @@
 package org.chamsoft.teamproject3.BusinessLogicLayer;
 
 import org.chamsoft.teamproject3.DataAccessLayer.*;
-import org.chamsoft.teamproject3.DataAccessLayer.*;
 import org.chamsoft.teamproject3.PresentationLayer.*;
 import org.chamsoft.teamproject3.MapperLayer.*;
+import org.chamsoft.teamproject3.Utilities.InvalidBookDataException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,9 +21,9 @@ public class BookService {
         this.bookMapper = bookMapper;
     }
 
-    public List<BookResponseModel> getCars() {
+    public List<BookResponseModel> getBooks() {
         List<Book> books = this.bookRepository.findAll();
-        // map the list of cars to list of CarResponseModel
+
         List<BookResponseModel> bookResponseModels = new ArrayList<>();
         for (Book book : books) {
             bookResponseModels.add(this.bookMapper.toResponse(book));
@@ -32,8 +32,11 @@ public class BookService {
         return bookResponseModels;
     }
 
+    @Transactional
     public void deleteBook(Long id) {
-        long idLong = id;
+        if(!bookRepository.existsById(id)) {
+            throw new InvalidBookDataException("Book with this id does not exist");
+        }
         this.bookRepository.deleteBookById(id);
     }
 }
