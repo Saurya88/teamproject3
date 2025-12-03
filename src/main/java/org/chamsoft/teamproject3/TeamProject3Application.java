@@ -32,14 +32,30 @@ public class TeamProject3Application implements CommandLineRunner {
     @Transactional
     public void run(String... args) throws Exception {
 
+        // Existing authors
         Author author1 = new Author("John", "Johnson");
         Author author2 = new Author("Mary", "Robinson");
 
-        authorRepository.saveAll(Arrays.asList(author1, author2));
+        // New authors
+        Author author3 = new Author("Eric", "Ionascu");
+        Author author4 = new Author("Sarah", "Miller");
+        Author author5 = new Author("David", "Thompson");
+        Author author6 = new Author("Emily", "Carter");
 
-        this.bookRepository.save(new Book("Alice",author1));
-        this.bookRepository.save(new Book("Bob",author2));
-        this.bookRepository.save(new Book("Charlie",author1));
+        authorRepository.saveAll(Arrays.asList(author1, author2, author3, author4, author5, author6));
+
+        bookRepository.save(new Book("Alice", author1));
+        bookRepository.save(new Book("Bob", author2));
+        bookRepository.save(new Book("Charlie", author1));
+
+        bookRepository.save(new Book("The Silent Forest", author3));
+        bookRepository.save(new Book("Ocean of Dreams", author4));
+        bookRepository.save(new Book("Final Horizon", author5));
+        bookRepository.save(new Book("Shadows of Time", author6));
+        bookRepository.save(new Book("Broken Symphony", author3));
+        bookRepository.save(new Book("City of Emberlight", author4));
+        bookRepository.save(new Book("Moonrise Valley", author5));
+        bookRepository.save(new Book("Echoes of Dawn", author6));
 
         for (Book book : this.bookRepository.findAll()) {
             logger.info("title: {}, author: {} {}",
@@ -47,4 +63,5 @@ public class TeamProject3Application implements CommandLineRunner {
                     book.getAuthor().getLName());
         }
     }
+
 }
