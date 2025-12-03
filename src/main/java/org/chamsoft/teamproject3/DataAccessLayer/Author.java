@@ -14,7 +14,7 @@ public class Author {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id; // use Long for auto-generation
+    private Long id;
 
     @Column(name = "first_name")
     private String fName;
@@ -22,9 +22,9 @@ public class Author {
     @Column(name = "last_name")
     private String lName;
 
-
     public Author(String fName, String lName) {
         this.fName = fName;
         this.lName = lName;
     }
+
 }
